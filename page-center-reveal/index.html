@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flowaura - Shop - Jungle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="product-page-container" class="page">
+      <header id="header" class="header">
+        <h1 class="title">Jungle</h1>
+        <div id="header-text" class="header-text">
+          <div id="header-copy" class="header-copy">
+            <p>
+              <span class="italic">Jungle</span> was drawn over the sunny summer
+              days of 2024.<br />
+              Painted on watercolours.<br />
+              Vibrant and lively, perfect to brighten your home.
+            </p>
+          </div>
+          <img
+            aria-hidden="true"
+            src="/static/aesthetics/greyFlowauras2.png"
+            alt=""
+            id="header-accent"
+            class="header-accent"
+          />
+        </div>
+      </header>
+
+      <section id="main" class="main">
+        <div id="product-gallery-container" class="gallery">
+          <div class="gallery-grid">
+            <div class="grid-left">
+              <div class="cell">
+                <img
+                  class="img cover"
+                  src="/static/catalogue/waves.jpg"
+                  alt="gallery-1"
+                />
+              </div>
+              <div class="cell">
+                <img
+                  class="img cover"
+                  src="/static/catalogue/conversations.jpg"
+                  alt="gallery-2"
+                />
+              </div>
+            </div>
+            <div class="grid-right">
+              <div class="cell">
+                <img
+                  class="img cover"
+                  src="/static/catalogue/lidi.jpg"
+                  alt="gallery-3"
+                />
+              </div>
+              <div class="cell">
+                <img
+                  class="img cover"
+                  src="/static/aesthetics/greyFlowauras1.png"
+                  alt="gallery-4"
+                />
+              </div>
+              <div class="cell">
+                <img
+                  class="img cover"
+                  src="/static/aesthetics/purpleBrush.png"
+                  alt="gallery-5"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="options-container" class="options">
+          <div class="options-inner">
+            <div class="option-group" id="sizes"></div>
+            <div class="option-group" id="colours"></div>
+            <button id="add-to-cart" class="btn btn-primary desktop">
+              Harvest your flowaura
+            </button>
+          </div>
+        </div>
+
+        <div id="product-image-container" class="product-image">
+          <img
+            src="/static/jungle_yellow_1.jpg"
+            class="img contain"
+            alt="jungle"
+          />
+        </div>
+      </section>
+
+      <div class="mobile-cta">
+        <button id="add-to-cart-mobile" class="btn btn-primary">
+          Harvest your flowaura
+        </button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
