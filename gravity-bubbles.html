@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubble Gravity with Draggable Bubble</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      // Get the canvas element and its context
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      // Set canvas dimensions to cover the entire window
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Create an array to store bubble objects
+      var bubbles = [];
+      var draggableBubble = null;
+
+      // Create a function to generate random bubbles
+      function createBubble() {
+        var radius = Math.random() * 20 + 10; // Random radius between 10 and 30
+        var x = Math.random() * canvas.width;
+        var y = Math.random() * canvas.height;
+        var dx = (Math.random() - 0.5) * 2; // Random horizontal velocity
+        var dy = (Math.random() - 0.5) * 2; // Random vertical velocity
+
+        bubbles.push({ x: x, y: y, radius: radius, dx: dx, dy: dy });
+      }
+
+      // Create initial set of bubbles
+      for (var i = 0; i < 50; i++) {
+        createBubble();
+      }
+
+      // Function to handle mouse down event
+      canvas.addEventListener("mousedown", function (event) {
+        var mouseX = event.clientX - canvas.offsetLeft;
+        var mouseY = event.clientY - canvas.offsetTop;
+
+        // Check if the mouse is inside any bubble
+        bubbles.forEach(function (bubble) {
+          var distance = Math.sqrt(
+            (mouseX - bubble.x) * (mouseX - bubble.x) +
+              (mouseY - bubble.y) * (mouseY - bubble.y)
+          );
+          if (distance <= bubble.radius) {
+            draggableBubble = bubble;
+          }
+        });
+      });
+
+      // Function to handle mouse move event
+      canvas.addEventListener("mousemove", function (event) {
+        if (draggableBubble) {
+          draggableBubble.x = event.clientX - canvas.offsetLeft;
+          draggableBubble.y = event.clientY - canvas.offsetTop;
+        }
+      });
+
+      // Function to handle mouse up event
+      canvas.addEventListener("mouseup", function (event) {
+        draggableBubble = null;
+      });
+
+      // Function to animate the bubbles
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw each bubble
+        bubbles.forEach(function (bubble) {
+          ctx.beginPath();
+          ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255, 165, 0, 0.6)";
+          ctx.fill();
+          ctx.closePath();
+
+          // Apply gravitational pull towards the center of the canvas
+          if (bubble !== draggableBubble) {
+            var gravityX = canvas.width / 2 - bubble.x;
+            var gravityY = canvas.height / 2 - bubble.y;
+            var distance = Math.sqrt(gravityX * gravityX + gravityY * gravityY);
+            var forceDirectionX = gravityX / distance;
+            var forceDirectionY = gravityY / distance;
+            var force = 0.1;
+
+            bubble.dx += forceDirectionX * force;
+            bubble.dy += forceDirectionY * force;
+
+            // Update bubble position
+            bubble.x += bubble.dx;
+            bubble.y += bubble.dy;
+
+            // Apply friction to slow down bubbles
+            bubble.dx *= 0.99;
+            bubble.dy *= 0.99;
+
+            // Keep bubbles within canvas bounds
+            if (
+              bubble.x + bubble.radius > canvas.width ||
+              bubble.x - bubble.radius < 0
+            ) {
+              bubble.dx = -bubble.dx;
+            }
+            if (
+              bubble.y + bubble.radius > canvas.height ||
+              bubble.y - bubble.radius < 0
+            ) {
+              bubble.dy = -bubble.dy;
+            }
+          }
+        });
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
